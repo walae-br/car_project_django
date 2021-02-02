@@ -1,6 +1,8 @@
 # pages/tests.py
 from django.test import SimpleTestCase
 from django.urls import reverse
+from django.urls import reverse, resolve
+from .views import HomePageView, AboutPageView, ContactPageView
 
 class HomepageTests(SimpleTestCase):
     def setUp(self):
@@ -23,6 +25,13 @@ class HomepageTests(SimpleTestCase):
     def test_homepage_contains_correct_html(self):
         response = self.client.get('/')
         self.assertContains(response, 'Homepage')
+
+    def test_homepage_url_resolves_homepageview(self):
+        view = resolve('/')
+        self.assertEqual(
+                view.func.__name__,
+                HomePageView.as_view().__name__
+                )
 
 
 class AboutpageTests(SimpleTestCase):
@@ -47,6 +56,14 @@ class AboutpageTests(SimpleTestCase):
         response = self.client.get('/about/')
         self.assertContains(response, 'Aboutpage')
 
+    def test_aboutpage_url_resolves_homepageview(self):
+        view = resolve('/about/')
+        self.assertEqual(
+                view.func.__name__,
+                AboutPageView.as_view().__name__
+                )
+
+
 
 class ContactpageTests(SimpleTestCase):
     def setUp(self):
@@ -69,3 +86,10 @@ class ContactpageTests(SimpleTestCase):
     def test_contactpage_contains_correct_html(self):
         response = self.client.get('/contact/')
         self.assertContains(response, 'Contactpage')
+
+    def test_contactpage_url_resolves_homepageview(self):
+        view = resolve('/contact/')
+        self.assertEqual(
+                view.func.__name__,
+                ContactPageView.as_view().__name__
+                )
