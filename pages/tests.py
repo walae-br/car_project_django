@@ -16,6 +16,10 @@ class HomepageTests(SimpleTestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'home.html')
 
+    def test_homepage_contains_correct_html(self):
+        response = self.client.get('/')
+        self.assertContains(response, 'Homepage')
+
 
 class AboutpageTests(SimpleTestCase):
     def test_aboutpage_status_code(self):
@@ -31,6 +35,10 @@ class AboutpageTests(SimpleTestCase):
         response = self.client.get('/about/')
         self.assertTemplateUsed(response, 'about.html')
 
+    def test_aboutpage_contains_correct_html(self):
+        response = self.client.get('/about/')
+        self.assertContains(response, 'Aboutpage')
+
 
 class ContactpageTests(SimpleTestCase):
     def test_contactpage_status_code(self):
@@ -45,3 +53,7 @@ class ContactpageTests(SimpleTestCase):
     def test_contactpage_template(self):
         response = self.client.get('/contact/')
         self.assertTemplateUsed(response, 'contact.html')
+
+    def test_contactpage_contains_correct_html(self):
+        response = self.client.get('/contact/')
+        self.assertContains(response, 'Contactpage')
