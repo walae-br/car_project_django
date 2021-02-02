@@ -3,6 +3,10 @@ from django.test import SimpleTestCase
 from django.urls import reverse
 
 class HomepageTests(SimpleTestCase):
+    def setUp(self):
+        url = reverse('home')
+        self.response = self.client.get(url)
+
     def test_homepage_status_code(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
@@ -22,6 +26,10 @@ class HomepageTests(SimpleTestCase):
 
 
 class AboutpageTests(SimpleTestCase):
+    def setUp(self):
+        url = reverse('about')
+        self.response = self.client.get(url)
+
     def test_aboutpage_status_code(self):
         response = self.client.get('/about/')
         self.assertEqual(response.status_code, 200)
@@ -41,6 +49,10 @@ class AboutpageTests(SimpleTestCase):
 
 
 class ContactpageTests(SimpleTestCase):
+    def setUp(self):
+        url = reverse('contact')
+        self.response = self.client.get(url)
+
     def test_contactpage_status_code(self):
         response = self.client.get('/contact/')
         self.assertEqual(response.status_code, 200)
